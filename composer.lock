@@ -4,8 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "14aea6777107125b76e9ba27959c6714",
-    "content-hash": "3d6b117b193c8f3190ffdc414667fdd1",
+    "content-hash": "9713c2dab73b408db7923fba99050690",
     "packages": [
         {
             "name": "codeigniter/framework",
@@ -38,7 +37,7 @@
             ],
             "description": "The CodeIgniter framework",
             "homepage": "https://codeigniter.com",
-            "time": "2018-01-13 11:57:11"
+            "time": "2018-01-13T11:57:11+00:00"
         },
         {
             "name": "dompdf/dompdf",
@@ -99,7 +98,7 @@
             ],
             "description": "DOMPDF is a CSS 2.1 compliant HTML to PDF converter",
             "homepage": "https://github.com/dompdf/dompdf",
-            "time": "2016-05-11 00:36:29"
+            "time": "2016-05-11T00:36:29+00:00"
         },
         {
             "name": "ins0/google-measurement-php-client",
@@ -111,7 +110,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ins0/google-measurement-php-client/zipball/415cabca0c6d83cd0bd6a8ed6fb695b35f892018",
+                "url": "https://api.github.com/repos/ins0/google-measurement-php-client/zipball/2b3aef2375837339f5b2bfe88e76994481f86264",
                 "reference": "2b3aef2375837339f5b2bfe88e76994481f86264",
                 "shasum": ""
             },
@@ -152,7 +151,7 @@
                 "google",
                 "measurement"
             ],
-            "time": "2016-09-07 19:39:27"
+            "time": "2016-09-07T19:39:27+00:00"
         },
         {
             "name": "paragonie/random_compat",
@@ -200,7 +199,7 @@
                 "pseudorandom",
                 "random"
             ],
-            "time": "2017-09-27 21:40:39"
+            "time": "2017-09-27T21:40:39+00:00"
         },
         {
             "name": "phenx/php-font-lib",
@@ -234,7 +233,7 @@
             ],
             "description": "A library to read, parse, export and make subsets of different types of font files.",
             "homepage": "https://github.com/PhenX/php-font-lib",
-            "time": "2015-05-06 20:02:39"
+            "time": "2015-05-06T20:02:39+00:00"
         },
         {
             "name": "phenx/php-svg-lib",
@@ -268,7 +267,50 @@
             ],
             "description": "A library to read, parse and export to PDF SVG files.",
             "homepage": "https://github.com/PhenX/php-svg-lib",
-            "time": "2015-05-06 18:49:49"
+            "time": "2015-05-06T18:49:49+00:00"
+        },
+        {
+            "name": "sasco/libredte-sdk-php",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/LibreDTE/libredte-sdk-php.git",
+                "reference": "992beab6392a7662249ccd548148a80cffb6f38e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/LibreDTE/libredte-sdk-php/zipball/992beab6392a7662249ccd548148a80cffb6f38e",
+                "reference": "992beab6392a7662249ccd548148a80cffb6f38e",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "php": ">=5.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "sasco\\LibreDTE\\SDK\\": "sdk/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0+"
+            ],
+            "authors": [
+                {
+                    "name": "SASCO SpA",
+                    "homepage": "https://sasco.cl"
+                }
+            ],
+            "description": "SDK para realizar la integración con los servicios web de LibreDTE",
+            "homepage": "https://libredte.cl",
+            "keywords": [
+                "dte",
+                "facturación electrónica",
+                "sii"
+            ],
+            "time": "2017-11-30T17:27:39+00:00"
         },
         {
             "name": "tamtamchik/namecase",
@@ -325,7 +367,7 @@
                 "strings",
                 "tamtamchik"
             ],
-            "time": "2016-02-06 10:46:26"
+            "time": "2016-02-06T10:46:26+00:00"
         }
     ],
     "packages-dev": [
@@ -357,7 +399,7 @@
                 "BSD"
             ],
             "homepage": "http://vfs.bovigo.org/",
-            "time": "2012-08-25 12:49:29"
+            "time": "2012-08-25T12:49:29+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -407,7 +449,7 @@
                 "env",
                 "environment"
             ],
-            "time": "2016-09-01 10:05:43"
+            "time": "2016-09-01T10:05:43+00:00"
         }
     ],
     "aliases": [],

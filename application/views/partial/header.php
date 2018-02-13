@@ -15,7 +15,6 @@
 		<link rel="stylesheet" href="bower_components/smalot-bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" />
 		<link rel="stylesheet" href="bower_components/bootstrap-select/dist/css/bootstrap-select.css" />
 		<link rel="stylesheet" href="bower_components/bootstrap-table/src/bootstrap-table.css" />
-		<link rel="stylesheet" href="bower_components/bootstrap-table/dist/extensions/sticky-header/bootstrap-table-sticky-header.css" />
 		<link rel="stylesheet" href="bower_components/bootstrap-daterangepicker/daterangepicker.css" />
 		<link rel="stylesheet" href="bower_components/chartist/dist/chartist.min.css" />
 		<link rel="stylesheet" href="bower_components/chartist-plugin-tooltip/dist/chartist-plugin-tooltip.css" />
@@ -32,6 +31,9 @@
 		<link rel="stylesheet" type="text/css" href="css/reports.css"/>
 		<!-- end css template tags -->
 		<!-- bower:js -->
+		
+		<script src="bower_components/dist/print.min.js"></script>
+
 		<script src="bower_components/jquery/dist/jquery.js"></script>
 		<script src="bower_components/jquery-form/jquery.form.js"></script>
 		<script src="bower_components/jquery-validate/dist/jquery.validate.js"></script>
@@ -44,7 +46,6 @@
 		<script src="bower_components/bootstrap-table/src/bootstrap-table.js"></script>
 		<script src="bower_components/bootstrap-table/dist/extensions/export/bootstrap-table-export.js"></script>
 		<script src="bower_components/bootstrap-table/dist/extensions/mobile/bootstrap-table-mobile.js"></script>
-		<script src="bower_components/bootstrap-table/dist/extensions/sticky-header/bootstrap-table-sticky-header.js"></script>
 		<script src="bower_components/moment/moment.js"></script>
 		<script src="bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
 		<script src="bower_components/file-saver.js/FileSaver.js"></script>
@@ -59,7 +60,7 @@
 		<script src="bower_components/chartist-plugin-barlabels/dist/chartist-plugin-barlabels.min.js"></script>
 		<script src="bower_components/remarkable-bootstrap-notify/bootstrap-notify.js"></script>
 		<script src="bower_components/js-cookie/src/js.cookie.js"></script>
-		<script src="bower_components/blockUI/jquery.blockUI.js"></script>
+		<!-- <script src="bower_components/blockUI/jquery.blockUI.js"></script> -->
 		<script src="bower_components/bootstrap-tagsinput/dist/bootstrap-tagsinput.js"></script>
 		<!-- endbower -->
 		<!-- start js template tags -->
@@ -73,10 +74,10 @@
 		<![endif]-->
 		<!-- start mincss template tags -->
 		<link rel="stylesheet" type="text/css" href="dist/jquery-ui/jquery-ui.min.css"/>
-		<link rel="stylesheet" type="text/css" href="dist/opensourcepos.min.css?rel=1831dfe53b"/>
+		<link rel="stylesheet" type="text/css" href="dist/opensourcepos.min.css?rel=9202eddfb2"/>
 		<!-- end mincss template tags -->
 		<!-- start minjs template tags -->
-		<script type="text/javascript" src="dist/opensourcepos.min.js?rel=3d4bb30c88"></script>
+		<script type="text/javascript" src="dist/opensourcepos.min.js?rel=f6ce7fb090"></script>
 		<!-- end minjs template tags -->
 	<?php endif; ?>
 
@@ -125,13 +126,13 @@
 
 				<div class="navbar-collapse collapse">
 					<ul class="nav navbar-nav navbar-right">
-						<?php foreach($allowed_modules as $module): ?>
-							<li class="<?php echo $module->module_id == $this->uri->segment(1) ? 'active' : ''; ?>">
-								<a href="<?php echo site_url("$module->module_id"); ?>" title="<?php echo $this->lang->line("module_" . $module->module_id); ?>" class="menu-icon">
-									<img src="<?php echo base_url() . 'images/menubar/' . $module->module_id . '.png'; ?>" border="0" alt="Module Icon"/><br/>
-									<?php echo $this->lang->line("module_" . $module->module_id) ?>
-								</a>
-							</li>
+						<?php foreach($allowed_modules->result() as $module): ?>
+						<li class="<?php echo $module->module_id == $this->uri->segment(1)? 'active': ''; ?>">
+							<a href="<?php echo site_url("$module->module_id");?>" title="<?php echo $this->lang->line("module_".$module->module_id);?>" class="menu-icon">
+								<img src="<?php echo base_url().'images/menubar/'.$module->module_id.'.png';?>" border="0" alt="Module Icon" /><br />
+								<?php echo $this->lang->line("module_".$module->module_id) ?>
+							</a>
+						</li>
 						<?php endforeach; ?>
 					</ul>
 				</div>

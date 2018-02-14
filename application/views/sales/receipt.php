@@ -1,13 +1,17 @@
 <?php namespace sasco\LibreDTE\SDK; ?>
+<?php
+$file_name=$sale_id.''.'.pdf';
+
+$url=base_url().''.$file_name;?>
 <?php $this->load->view("partial/header"); ?>
 <script type='text/javascript' src="bower_components/dist/print.min.js"></script>
-	<script>
-		$(document).ready(function(){
-	    	$("button").click(function(){
-	        printJS("<?php base_url(); ?>receipt.pdf");
-	    });
-	    });
-	</script>
+    <script>
+        $(document).ready(function(){
+            $("button").click(function(){
+            printJS("<?php echo$url?>");
+        });
+        });
+    </script>
 
 <?php
 class LibreDTE
@@ -280,16 +284,19 @@ class Rest
 }
 ?>
 <?php
-			$url 	= 'https://coranto.cl/libredte';
-			$hash 	= 'gUW5nTgcy4CsmuhHDNPXvafSwjGVKz4S';
-			$dte = [
-			    'Encabezado' => [
-			        'IdDoc' => [
-			            'TipoDTE' => 39, //static, always the same
-			        ],
-			        'Emisor' => [
-			            'RUTEmisor' => '76643392-8', //company id, like vat number
-			         ],
+if (!file_exists($sale_id.''.'.pdf')) {
+    # code...
+
+            $url    = 'https://coranto.cl/libredte';
+            $hash   = 'gUW5nTgcy4CsmuhHDNPXvafSwjGVKz4S';
+            $dte = [
+                'Encabezado' => [
+                    'IdDoc' => [
+                        'TipoDTE' => 39, //static, always the same
+                    ],
+                    'Emisor' => [
+                        'RUTEmisor' => '76643392-8', //company id, like vat number
+                     ],
         'Receptor' => [
             'RUTRecep' => '66666666-6',
             'RznSocRecep' => 'Persona sin RUT',
@@ -309,39 +316,40 @@ foreach ($cart as $line => $item) {
 }
 
 
-			// incluir autocarga de composer
-			//require('../vendor/autoload.php');
+            // incluir autocarga de composer
+            //require('../vendor/autoload.php');
 
-			// crear cliente
-			$LibreDTE = new \sasco\LibreDTE\SDK\LibreDTE($hash, $url);
-			// $LibreDTE->setSSL(false, false); ///< segundo parámetro =false desactiva verificación de SSL
+            // crear cliente
+            $LibreDTE = new \sasco\LibreDTE\SDK\LibreDTE($hash, $url);
+            // $LibreDTE->setSSL(false, false); ///< segundo parámetro =false desactiva verificación de SSL
 
-			// crear DTE temporal
-			$emitir = $LibreDTE->post('/dte/documentos/emitir', $dte);
-			if ($emitir['status']['code']!=200) {
-			    die('Error al emitir DTE temporal: '.$emitir['body']."\n");
-			}
+            // crear DTE temporal
+            $emitir = $LibreDTE->post('/dte/documentos/emitir', $dte);
+            if ($emitir['status']['code']!=200) {
+                die('Error al emitir DTE temporal: '.$emitir['body']."\n");
+            }
 
-			// crear DTE real
-			$generar = $LibreDTE->post('/dte/documentos/generar', $emitir['body']);
-			if ($generar['status']['code']!=200) {
-			    die('Error al generar DTE real: '.$generar['body']."\n");
-			}
-			
-			// obtener el PDF del DTE
-			$generar_pdf = $LibreDTE->get('/dte/dte_emitidos/pdf/'.$generar['body']['dte'].'/'.$generar['body']['folio'].'/'.$generar['body']['emisor']);
-			if ($generar_pdf['status']['code']!=200) {
-			    die('Error al generar PDF del DTE: '.$generar_pdf['body']."\n");
-			}
-			// guardar PDF en el disco
-			file_put_contents(str_replace('.php', '.pdf', basename(__FILE__)), $generar_pdf['body']);
-			?>
+            // crear DTE real
+            $generar = $LibreDTE->post('/dte/documentos/generar', $emitir['body']);
+            if ($generar['status']['code']!=200) {
+                die('Error al generar DTE real: '.$generar['body']."\n");
+            }
+            
+            // obtener el PDF del DTE
+            $generar_pdf = $LibreDTE->get('/dte/dte_emitidos/pdf/'.$generar['body']['dte'].'/'.$generar['body']['folio'].'/'.$generar['body']['emisor']);
+            if ($generar_pdf['status']['code']!=200) {
+                die('Error al generar PDF del DTE: '.$generar_pdf['body']."\n");
+            }
+            // guardar PDF en el disco
+            file_put_contents(str_replace('.php', '.pdf', basename($sale_id.''.'.pdf')), $generar_pdf['body']);
+        }
+            ?>
 
 <?php
 if (isset($error_message))
 {
-	echo "<div class='alert alert-dismissible alert-danger'>".$error_message."</div>";
-	exit;
+    echo "<div class='alert alert-dismissible alert-danger'>".$error_message."</div>";
+    exit;
 }
 ?>
 
@@ -349,21 +357,21 @@ if (isset($error_message))
 <script type="text/javascript">
 $(document).ready(function()
 {
-	var send_email = function()
-	{
-		$.get('<?php echo site_url() . "/sales/send_receipt/" . $sale_id_num; ?>',
-			function(response)
-			{
-				$.notify(response.message, { type: response.success ? 'success' : 'danger'} );
-			}, 'json'
-		);
-	};
+    var send_email = function()
+    {
+        $.get('<?php echo site_url() . "/sales/send_receipt/" . $sale_id_num; ?>',
+            function(response)
+            {
+                $.notify(response.message, { type: response.success ? 'success' : 'danger'} );
+            }, 'json'
+        );
+    };
 
-	$("#show_email_button").click(send_email);
+    $("#show_email_button").click(send_email);
 
-	<?php if(!empty($email_receipt)): ?>
-		send_email();
-	<?php endif; ?>
+    <?php if(!empty($email_receipt)): ?>
+        send_email();
+    <?php endif; ?>
 });
 </script>
 <?php endif; ?>
@@ -374,32 +382,31 @@ $(document).ready(function()
 
 
 <div class="print_hide" id="control_buttons" style="text-align:right">
-	<button class="btn btn-info btn-sm" id="show_print_button" ><?php echo '<span class="glyphicon glyphicon-print">&nbsp</span>' . $this->lang->line('common_print'); ?>
+    <button class="btn btn-info btn-sm" id="show_print_button" ><?php echo '<span class="glyphicon glyphicon-print">&nbsp</span>' . $this->lang->line('common_print'); ?>
         
       </button>
-	<a href="javascript:printdoc();"><div class="btn btn-info btn-sm", id="show_print_button"><?php echo '<span class="glyphicon glyphicon-print">&nbsp</span>' . $this->lang->line('common_print'); ?></div></a>
-
-	<?php /* this line will allow to print and go back to sales automatically.... echo anchor("sales", '<span class="glyphicon glyphicon-print">&nbsp</span>' . $this->lang->line('common_print'), array('class'=>'btn btn-info btn-sm', 'id'=>'show_print_button', 'onclick'=>'window.print();')); */ ?>
-	<?php if(isset($customer_email) && !empty($customer_email)): ?>
-		<a href="javascript:void(0);"><div class="btn btn-info btn-sm", id="show_email_button"><?php echo '<span class="glyphicon glyphicon-envelope">&nbsp</span>' . $this->lang->line('sales_send_receipt'); ?></div></a>
-	<?php endif; ?>
-
+   
+    <?php /* this line will allow to print and go back to sales automatically.... echo anchor("sales", '<span class="glyphicon glyphicon-print">&nbsp</span>' . $this->lang->line('common_print'), array('class'=>'btn btn-info btn-sm', 'id'=>'show_print_button', 'onclick'=>'window.print();')); */ ?>
+    <?php if(isset($customer_email) && !empty($customer_email)): ?>
+        <a href="javascript:void(0);"><div class="btn btn-info btn-sm", id="show_email_button"><?php echo '<span class="glyphicon glyphicon-envelope">&nbsp</span>' . $this->lang->line('sales_send_receipt'); ?></div></a>
+    <?php endif; ?>
 
 
-	
-	<?php echo anchor("sales", '<span class="glyphicon glyphicon-shopping-cart">&nbsp</span>' . $this->lang->line('sales_register'), array('class'=>'btn btn-info btn-sm', 'id'=>'show_sales_button')); ?>
+
+    
+    <?php echo anchor("sales", '<span class="glyphicon glyphicon-shopping-cart">&nbsp</span>' . $this->lang->line('sales_register'), array('class'=>'btn btn-info btn-sm', 'id'=>'show_sales_button')); ?>
 
 
-	
+    
 
-	<?php echo anchor("sales/manage", '<span class="glyphicon glyphicon-list-alt">&nbsp</span>' . $this->lang->line('sales_takings'), array('class'=>'btn btn-info btn-sm', 'id'=>'show_takings_button')); ?>
-	<!-- Button to generate the pdf in SDK Library -->
-	
-	
+    <?php echo anchor("sales/manage", '<span class="glyphicon glyphicon-list-alt">&nbsp</span>' . $this->lang->line('sales_takings'), array('class'=>'btn btn-info btn-sm', 'id'=>'show_takings_button')); ?>
+    <!-- Button to generate the pdf in SDK Library -->
+    
+    
 </div>
 
 
-	<?php $this->load->view("sales/" . $this->config->item('receipt_template')); ?>
+    <?php $this->load->view("sales/" . $this->config->item('receipt_template')); ?>
 
 
 <?php $this->load->view("partial/footer"); ?>
